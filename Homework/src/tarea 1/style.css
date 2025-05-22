@@ -78,5 +78,13 @@
 .volver {
    color: #ffffff;
 }
-
-
+.Telegram {
+    margin: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #ff5f6d;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}

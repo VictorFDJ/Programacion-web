@@ -21,7 +21,7 @@
                     <a href="calculadora.php">Calculadora</a>
                 </li>
                  <li>
-                    <a href="adivina.php">Adivina</a>
+                    <a href="adivinar.php">Adivina</a>
                 </li>
                  <li>
                     <a href="acerca.php">Acerca de</a>
