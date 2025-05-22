@@ -4,16 +4,18 @@ $apellido = "Fernandez de Jesus";
 $edad = 22; 
 $carrera = "Software"; 
 $universidad = "Itla";
+$mensaje = ($edad >= 18)? "Eres mayor de edad, 'Tienes que buscar trabajo rapido')":"Eres menor de edad 'acuestate temprano'";
 
  require('partes/cabeza.php'); ?>  
 
 <div class="card">
     <h1>Datos Personales</h1>
-    <div class="info"><span>Nombre:</span> <?php echo $nombre; ?></div>
-    <div class="info"><span>Apellido:</span> <?php echo $apellido; ?></div>
-    <div class="info"><span>Edad:</span> <?php echo $edad; ?> años</div>
-    <div class="info"><span>Carrera:</span> <?php echo $carrera; ?></div>
-    <div class="info"><span>Universidad:</span> <?php echo $universidad; ?></div>
+    <div >Nombre: <?php echo $nombre; ?></div>
+    <div >Apellido: <?php echo $apellido; ?></div>
+    <div >Edad: <?php echo $edad; ?> años</div>
+    <div >Carrera: <?php echo $carrera; ?></div>
+    <div >Universidad: <?php echo $universidad; ?></div>
+    <div><?php echo $mensaje; ?></div>
 </div>
 
 
