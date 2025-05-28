@@ -4,20 +4,16 @@ include("libraries/principal.php");
 
 $obra = new obra();
 
-if(isset($_GET['id'])){
-    $ruta = 'datos/'.$_GET['id'].'.json';
-    if(is_file($ruta)){
+// Cargar obra desde archivo si se proporciona un ID por GET
+if (isset($_GET['id'])) {
+    $ruta = 'datos/' . $_GET['id'] . '.json';
+    if (is_file($ruta)) {
         $json = file_get_contents($ruta);
         $obra = json_decode($json);
-    }else{
-        plantilla::aplicar();
-        echo '<div class="alert alert-danger">Error al cargar la obra</div>';
-        echo '<a href="index.php" class="btn btn-primary">Volver</a>';
-        exit();
     }
 }
 
-
+// Procesar envío del formulario (POST)
 if ($_POST) {
     // Cargar los datos del formulario en el objeto obra
     $obra->codigo = $_POST['codigo'];
@@ -28,19 +24,17 @@ if ($_POST) {
     $obra->pais = $_POST['pais'];
     $obra->autor = $_POST['autor'];
 
-    // Aquí podrías guardar el objeto obra en una base de datos o archivo
-    // Por simplicidad, solo mostraremos un mensaje de éxito
-    echo "<div class='alert alert-success'>Obra guardada exitosamente!</div>";
+    // Verificar que la carpeta "datos" exista
     if (!is_dir('datos')) {
         plantilla::aplicar();
         echo "<div class='alert alert-danger'>Error al crear la carpeta de datos</div>";
         echo "<a href='index.php' class='btn btn-primary'>Volver</a>";
         exit();
     }
+
+    // Guardar la obra como JSON
     $ruta = 'datos/' . $obra->codigo . '.json';
-
     $json = json_encode($obra);
-
     file_put_contents($ruta, $json);
 
     plantilla::aplicar();
@@ -49,23 +43,21 @@ if ($_POST) {
     exit();
 }
 
-
-
 plantilla::aplicar();
-
 ?>
 
-
+<!-- Formulario de edición de obra -->
 <form method="post" action="editar.php">
-    <!-- Codigo de la obra -->
+    <!-- Código de la obra -->
     <div class="mb-3">
-        <label for="codigo" class="form-label">Codigo</label>
-        <input type="text" class="form-control" name="codigo" id="codigo" value="<?php echo $obra->codigo; ?>">
+        <label for="codigo" class="form-label">Código</label>
+        <input type="text" class="form-control" name="codigo" id="codigo" value="<?= $obra->codigo ?>">
     </div>
+
     <!-- Foto de la obra -->
     <div class="mb-3">
         <label for="foto_url" class="form-label">Foto</label>
-        <input type="text" class="form-control" name="foto_url" id="foto_url" value="<?php echo $obra->foto_url; ?>">
+        <input type="text" class="form-control" name="foto_url" id="foto_url" value="<?= $obra->foto_url ?>">
     </div>
 
     <!-- Tipo de obra -->
@@ -81,27 +73,32 @@ plantilla::aplicar();
             ?>
         </select>
     </div>
+
     <!-- Nombre de la obra -->
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $obra->nombre; ?>">
+        <input type="text" class="form-control" name="nombre" id="nombre" value="<?= $obra->nombre ?>">
     </div>
-    <!-- Descripcion de la obra -->
+
+    <!-- Descripción de la obra -->
     <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripcion</label>
-        <textarea class="form-control" name="descripcion" id="descripcion"><?php echo $obra->descripcion; ?></textarea>
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea class="form-control" name="descripcion" id="descripcion"><?= $obra->descripcion ?></textarea>
     </div>
-    <!-- Pais de la obra -->
+
+    <!-- País de la obra -->
     <div class="mb-3">
-        <label for="pais" class="form-label">Pais</label>
-        <input type="text" class="form-control" name="pais" id="pais" value="<?php echo $obra->pais; ?>">
+        <label for="pais" class="form-label">País</label>
+        <input type="text" class="form-control" name="pais" id="pais" value="<?= $obra->pais ?>">
     </div>
+
     <!-- Autor de la obra -->
     <div class="mb-3">
         <label for="autor" class="form-label">Autor</label>
-        <input type="text" class="form-control" name="autor" id="autor" value="<?php echo $obra->autor; ?>">
+        <input type="text" class="form-control" name="autor" id="autor" value="<?= $obra->autor ?>">
     </div>
 
+    <!-- Botones -->
     <div class="text-center">
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="index.php" class="btn btn-secondary">Cancelar</a>

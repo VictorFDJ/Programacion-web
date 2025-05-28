@@ -28,21 +28,23 @@ class plantilla
 
         <body>
             <div class="container">
-                <h1 class="mt-5">Lo que he visto</h1>
+                <a href="index.php" style="text-decoration: none; color: inherit;">
+                    <h1 class="mt-5">Lo que he visto</h1>
+                </a>
                 <p>Listados de peliculas que he visto</p>
                 <div style="min-height: 400px;">
-                <?php
+                    <?php
     }
 
 
     public function __destruct()
     {
         ?>
-            </div>
-            <div class="text-center">
-                <hr>
-                Derechos reservados &copy; <?php echo date("Y"); ?>
-            </div>
+                </div>
+                <div class="text-center">
+                    <hr>
+                    Derechos reservados &copy; <?php echo date("Y"); ?>
+                </div>
             </div>
         </body>
 
