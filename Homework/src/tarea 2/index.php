@@ -50,6 +50,7 @@ if(is_dir(filename: 'datos')){
         <td><?= $obra->pais ?></td>
         <td>
             <a href="editar.php?id=<?= $obra->codigo ?>" class="btn btn-warning">Editar</a>
+            <a href="personaje.php?id=<?= $obra->codigo ?>" class="btn btn-info">Personajes</a>
             <a href="detalle.php?id=<?= $obra->codigo ?>" class="btn btn-danger">Detalle</a>
         </td>
     </tr>

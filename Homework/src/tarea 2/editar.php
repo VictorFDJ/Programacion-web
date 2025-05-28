@@ -4,6 +4,20 @@ include("libraries/principal.php");
 
 $obra = new obra();
 
+if(isset($_GET['id'])){
+    $ruta = 'datos/'.$_GET['id'].'.json';
+    if(is_file($ruta)){
+        $json = file_get_contents($ruta);
+        $obra = json_decode($json);
+    }else{
+        plantilla::aplicar();
+        echo '<div class="alert alert-danger">Error al cargar la obra</div>';
+        echo '<a href="index.php" class="btn btn-primary">Volver</a>';
+        exit();
+    }
+}
+
+
 if ($_POST) {
     // Cargar los datos del formulario en el objeto obra
     $obra->codigo = $_POST['codigo'];
