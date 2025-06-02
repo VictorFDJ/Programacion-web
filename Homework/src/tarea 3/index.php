@@ -3,4 +3,7 @@ include("libreria/principal.php");
 Plantilla::aplicar();
 
 ?>
-hola Mundo <?php
+<p>
+    Welcome to Barbie's world
+</p>
+<img src="imgs/barbie.jpg" alt="Barbie">
