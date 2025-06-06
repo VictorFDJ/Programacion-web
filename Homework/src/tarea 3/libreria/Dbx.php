@@ -1,7 +1,9 @@
 <?php
+
 define("DATA_DIR", __DIR__ . "/datax");
+
 if(!is_dir(DATA_DIR)){
-    mkdir(DATA_DIR,0007, true);
+    mkdir(DATA_DIR,0777, true);
 }
 
 class Dbx
@@ -29,6 +31,7 @@ class Dbx
                 $data[] = $itemData;
             }
         }
+        return $data;
 
     }
 
@@ -41,6 +44,8 @@ class Dbx
         $content = file_get_contents($dataPath);
         return unserialize($content);
     }
+
+
     public static function save($collection, $item)
     {
         $dataPath = DATA_DIR . "/{$collection}";
@@ -50,6 +55,7 @@ class Dbx
         }
 
         $fileName = uniqid();
+        $item->idx = $fileName;
         $filePath = $dataPath . '/' . $fileName . '.dat';
 
         file_put_contents($filePath, serialize($item));

@@ -2,6 +2,7 @@
 
 
 class personaje{
+    public $idx = '';
     public $identificacion;
     public $nombre;
     public $apellido;
@@ -24,10 +25,12 @@ class personaje{
 }
 
 class profesion {
-    public $codigo;
-    public $nombre;
-    public $categoria;
-    public $salario_mensual;
+    public $idx = '';
+
+    public $codigo = "";
+    public $nombre = "";
+    public $categoria = "";
+    public $salario_mensual = 0;
 
     public function __construct($data = []) {
         if (is_object($data)) {
