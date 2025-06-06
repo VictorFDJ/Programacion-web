@@ -54,7 +54,7 @@ class Dbx
             mkdir($dataPath, 0777, true);
         }
 
-        $fileName = uniqid();
+        $fileName = (strlen($item->idx)>4)? $item->idx: uniqid();
         $item->idx = $fileName;
         $filePath = $dataPath . '/' . $fileName . '.dat';
 
