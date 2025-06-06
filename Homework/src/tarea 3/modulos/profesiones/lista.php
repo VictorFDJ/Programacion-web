@@ -3,6 +3,8 @@ include("../../libreria/principal.php");
 define("PAGINA_ACTUAL","profesiones");
 Plantilla::aplicar();
 
+$profesiones = Dbx::list("profesiones");
+
 ?>
 <h1>Listado de profesiones</h1>
 
@@ -20,7 +22,9 @@ Plantilla::aplicar();
         <td><?php echo htmlspecialchars($profesion['nombre']); ?></td>
         <td><?php echo htmlspecialchars($profesion['categoria']); ?></td>
         <td>
-          <a href="
+          <a href="<?= base_url('modulos/profesiones/editar.php?codigo={$profesion->codigo}') ?>" class="btn btn-primary">
+            📝
+          </a>
         </td>
       </tr>
     <?php endforeach; ?>

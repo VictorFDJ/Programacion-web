@@ -1,5 +1,5 @@
 <?php
-include("libreria/principal.php");
+include("../../libreria/principal.php");
 define("PAGINA_ACTUAL","personajes");
 Plantilla::aplicar();
 
