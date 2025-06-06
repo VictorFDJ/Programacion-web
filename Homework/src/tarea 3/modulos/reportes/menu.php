@@ -2,23 +2,39 @@
 include("../../libreria/principal.php");
 define("PAGINA_ACTUAL", "estadisticas");
 Plantilla::aplicar();
+
 $personajes = Dbx::list("personajes");
 $profesiones = Dbx::list("profesiones");
 
 $edad_total = 0;
-$sexcom = 0; // Nivel de experiencia común
+$sexcom = 0;
+$salario_total = 0;
 
 $mayor_salario = null;
 $menor_salario = null;
 
+$profesion_mayor_salario = null;
+$profesion_menor_salario = null;
+
 $personasXprofesion = [];
+$labels = [];
+$salarios = [];
+
 foreach ($profesiones as $profesion) {
-    if ($mayor_salario === null || $profesion->salario_mensual > $mayor_salario) {
-        $mayor_salario = $profesion->salario_mensual;
+    $salario = $profesion->salario_mensual;
+    $salario_total += $salario;
+
+    $labels[] = $profesion->nombre;
+    $salarios[] = $salario;
+
+    if ($mayor_salario === null || $salario > $mayor_salario) {
+        $mayor_salario = $salario;
+        $profesion_mayor_salario = $profesion->nombre;
     }
 
-    if ($menor_salario === null || $profesion->salario_mensual < $menor_salario) {
-        $menor_salario = $profesion->salario_mensual;
+    if ($menor_salario === null || $salario < $menor_salario) {
+        $menor_salario = $salario;
+        $profesion_menor_salario = $profesion->nombre;
     }
 
     if (!isset($personasXprofesion[$profesion->idx])) {
@@ -40,28 +56,26 @@ foreach ($personajes as $personaje) {
 
 $eprom = $edad_total / count($personajes);
 $sexcom = $sexcom / count($personajes);
+$salario_promedio = $salario_total / count($profesiones);
 
 $data = [
     'personajes' => count($personajes),
     'profesiones' => count($profesiones),
     'edad_promedio' => $eprom,
-    'nivel_experiencia_comun' => $sexcom, // Valor fijo para el ejemplo
-    
+    'nivel_experiencia_comun' => $sexcom,
+    'mayor_salario' => $mayor_salario,
+    'menor_salario' => $menor_salario,
+    'profesion_mayor_salario' => $profesion_mayor_salario,
+    'profesion_menor_salario' => $profesion_menor_salario,
+    'salario_promedio' => $salario_promedio
 ];
 
-
-
-
-
-
-
-
-
-
+$labels_json = json_encode($labels);
+$salarios_json = json_encode($salarios);
 ?>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-
 
 <div class="container-fluid p-4">
     <!-- Título -->
@@ -117,15 +131,9 @@ $data = [
                 <div class="card-body">
                     <h5 class="card-title fw-bold text-dark mb-3">Distribución de personajes por categoría</h5>
                     <ul class="list-unstyled">
-
-
-                        <?php
-                        foreach ($personasXprofesion as $idx => $fila) {
-                            echo '<li class="list-group-item">' . $fila['nombre'] . ': ' . $fila['cantidad'] . ' personajes</li>';
-                        }
-
-                        ?>
-
+                        <?php foreach ($personasXprofesion as $fila): ?>
+                            <li class="list-group-item"><?= $fila['nombre']; ?>: <?= $fila['cantidad']; ?> personajes</li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -137,26 +145,20 @@ $data = [
                     <div class="row">
                         <div class="col-12 mb-2">
                             <div class="d-flex justify-content-between">
-                                <span class="text-muted">Profesión con mayor salario: Ingeniera Robótica</span>
-                                <span class="fw-bold">RD$250,000</span>
+                                <span class="text-muted">Profesión con mayor salario: <?= $data['profesion_mayor_salario']; ?></span>
+                                <span class="fw-bold">RD$<?= number_format($data['mayor_salario'], 0); ?></span>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
                             <div class="d-flex justify-content-between">
-                                <span class="text-muted">Profesión con menor salario: Artista de plastilina</span>
-                                <span class="fw-bold">RD$35,000</span>
+                                <span class="text-muted">Profesión con menor salario: <?= $data['profesion_menor_salario']; ?></span>
+                                <span class="fw-bold">RD$<?= number_format($data['menor_salario'], 0); ?></span>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
                             <div class="d-flex justify-content-between">
                                 <span class="text-muted">Salario promedio:</span>
-                                <span class="fw-bold">RD$120,000</span>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <span class="text-muted">Personaje con mayor salario: Barbie CEO</span>
-                                <span class="fw-bold">RD$300,000</span>
+                                <span class="fw-bold">RD$<?= number_format($data['salario_promedio'], 0); ?></span>
                             </div>
                         </div>
                     </div>
@@ -168,8 +170,7 @@ $data = [
         <div class="col-lg-6">
             <div class="card shadow h-100">
                 <div class="card-body">
-                    <h5 class="card-title fw-bold text-dark text-center mb-4">Distribución de salarios por categoría de
-                        profesión</h5>
+                    <h5 class="card-title fw-bold text-dark text-center mb-4">Distribución de salarios por categoría de profesión</h5>
                     <div class="text-center">
                         <small class="text-muted d-block mb-3">Salario Promedio (RD$)</small>
                     </div>
@@ -183,21 +184,17 @@ $data = [
 </div>
 
 <script>
-    // Configuración del gráfico
+    const labels = <?= $labels_json ?>;
+    const data = <?= $salarios_json ?>;
+
     const ctx = document.getElementById('salaryChart').getContext('2d');
-    const salaryChart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Ciencia', 'Arte', 'Educación', 'Salud', 'Tecnología'],
+            labels: labels,
             datasets: [{
-                data: [180000, 85000, 120000, 150000, 250000],
-                backgroundColor: [
-                    '#FF69B4',
-                    '#FFB6C1',
-                    '#FF1493',
-                    '#DA70D6',
-                    '#FF69B4'
-                ],
+                data: data,
+                backgroundColor: labels.map(() => '#FF69B4'),
                 borderWidth: 0,
                 borderRadius: 8
             }]
@@ -206,26 +203,18 @@ $data = [
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false
-                }
+                legend: { display: false }
             },
             scales: {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: function (value) {
-                            return 'RD$' + value.toLocaleString();
-                        }
+                        callback: value => 'RD$' + value.toLocaleString()
                     },
-                    grid: {
-                        color: 'rgba(0,0,0,0.1)'
-                    }
+                    grid: { color: 'rgba(0,0,0,0.1)' }
                 },
                 x: {
-                    grid: {
-                        display: false
-                    }
+                    grid: { display: false }
                 }
             }
         }

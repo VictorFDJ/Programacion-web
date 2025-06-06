@@ -15,35 +15,43 @@ class Plantilla
 
     function __construct()
     {
-        $pagina_actual = (defined('PAGINA_ACTUAL') ? PAGINA_ACTUAL: 'inicio')
-        ?>
+        $pagina_actual = (defined('PAGINA_ACTUAL') ? PAGINA_ACTUAL : 'inicio')
+            ?>
         <!DOCTYPE html>
         <html lang="es">
 
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-  </head>
+            <title>Tu mundo favorito</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+        </head>
+
+
         <body>
             <div class="container">
                 <div>
-                    <h1>Mundo Barabie</h1>
+                    <h1 class="text-center text-purple mb-4 container" style="color: purple;">Mundo Barbie</h1>
                 </div>
                 <div class="divMenu">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link <?= $pagina_actual == 'inicio'?'active':''; ?>" aria-current="page" href="<?= base_url(); ?>">Inicio</a>
+                            <a class="nav-link <?= $pagina_actual == 'inicio' ? 'active' : ''; ?>" aria-current="page"
+                                href="<?= base_url(); ?>">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $pagina_actual == 'personajes'?'active':''; ?>" href="<?= base_url('modulos/personajes/lista_per.php') ?>">Personajes</a>
+                            <a class="nav-link <?= $pagina_actual == 'personajes' ? 'active' : ''; ?>"
+                                href="<?= base_url('modulos/personajes/lista_per.php') ?>">Personajes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $pagina_actual == 'profesiones'?'active':''; ?>" href="<?= base_url('modulos/profesiones/lista.php') ?>">Profesiones</a>
+                            <a class="nav-link <?= $pagina_actual == 'profesiones' ? 'active' : ''; ?>"
+                                href="<?= base_url('modulos/profesiones/lista.php') ?>">Profesiones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $pagina_actual == 'estadisticas'?'active':''; ?>" href="<?= base_url('modulos/reportes/menu.php') ?>">Estadísticas</a>
+                            <a class="nav-link <?= $pagina_actual == 'estadisticas' ? 'active' : ''; ?>"
+                                href="<?= base_url('modulos/reportes/menu.php') ?>">Estadísticas</a>
                         </li>
                     </ul>
 
@@ -52,7 +60,7 @@ class Plantilla
 
 
 
-                <?php
+                    <?php
     }
 
     function __destruct()

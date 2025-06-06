@@ -30,7 +30,7 @@ $personajes = Dbx::list("personajes");
             <td><?= htmlspecialchars($personaje->nivel_experiencia); ?></td>
             <td><?= htmlspecialchars($personaje->profesion); ?></td>
             <td>
-                <a href="<?= base_url('modulos/personajes/editar.php?codigo=' . $personaje->idx); ?>" class="btn btn-warning btn-sm">Editar</a>
+                <a href="<?= base_url('modulos/personajes/editar.php?codigo=' . $personaje->idx); ?>" class="btn btn-primary btn-sm">📝</a>
             </td>
         </tr>
         <?php endforeach; ?>
