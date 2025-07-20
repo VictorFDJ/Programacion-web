@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=MedievalSharp&display=swap');
+
+body {
+    background-color: #0d0d0d;
+    color: #f5f5f5;
+    font-family: 'MedievalSharp', cursive;
+    background-image: url('img/fondo_grimorio.jpg'); /* opcional: fondo con textura */
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #1b1b1b !important;
+    border-bottom: 4px solid #daa520;
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel Decorative', cursive;
+    text-shadow: 1px 1px 3px #000;
+    color: #fff8dc;
+}
+
+.card {
+    background-color: #1a1a1a !important;
+    border: 1px solid #444;
+    box-shadow: 0 0 10px #daa52080;
+}
+
+.btn-primary {
+    background-color: #daa520 !important;
+    border-color: #daa520 !important;
+    color: #000;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #b8860b !important;
+    border-color: #b8860b !important;
+}
+
+.table {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 1px solid #666;
+}
+
+.table th {
+    background-color: #2c2c2c;
+    color: #f9f9f9;
+}
+
+img.logo {
+    height: 50px;
+    margin-right: 10px;
+}
