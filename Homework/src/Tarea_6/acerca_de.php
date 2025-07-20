@@ -17,10 +17,6 @@
     <div class="ratio ratio-16x9 mt-3 mb-3" style="border: 3px solid #daa520; border-radius: 10px; overflow: hidden;">
         <iframe src="https://www.youtube.com/embed/uoKoguQDTvI" title="Video Tarea 2" allowfullscreen></iframe>
     </div>
-
-    <!-- Si no tienes video, descomenta este párrafo -->
-    <!-- <p class="text-warning">No se entregó video de la Tarea 2. Aquí una explicación del por qué.</p> -->
-
 </div>
 
 <?php include 'footer.php'; ?>

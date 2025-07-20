@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $foto_nombre = $personaje['foto'];
 
-    // Si sube una nueva foto, reemplazarla
+
     if (!empty($_FILES["foto"]["name"])) {
-        // Eliminar la foto anterior si existe
+        
         if (file_exists("fotos/" . $foto_nombre)) {
             unlink("fotos/" . $foto_nombre);
         }

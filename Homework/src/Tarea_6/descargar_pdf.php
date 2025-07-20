@@ -44,7 +44,7 @@ $html = '
 
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
-$dompdf->setPaper('A5', 'portrait'); // Puedes cambiar a 'A4' si prefieres más espacio
+$dompdf->setPaper('A5', 'portrait');
 $dompdf->render();
 $dompdf->stream("personaje_" . $personaje['nombre'] . ".pdf", ["Attachment" => false]);
 exit();
